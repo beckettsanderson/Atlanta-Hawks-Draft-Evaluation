@@ -121,6 +121,7 @@ def value_draft_pos(df):
 
     # get the average value of all players in each slot
     slot_values = df.groupby('overall_pick')['player_val'].mean()
+    print("Average Draft Value by Pick:\n", slot_values)
 
     # create a column with the expected value of the draft slot
     df['expected_val'] = df['overall_pick'].apply(lambda x: slot_values.iloc[x - 1])
@@ -234,7 +235,7 @@ def Main():
 
     # evaluate each draft slot
     df = value_draft_pos(df)
-    print(df)
+    print("Top 20 Players by Evaluation:\n", df.sort_values('player_val', ascending=False).head(20))
 
     # evaluate team and college ability picking and preparing players respectively
     team_evaluation(df)
